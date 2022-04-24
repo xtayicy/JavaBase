@@ -6,24 +6,38 @@ package harry.thread;
  *
  */
 public class AThread extends Thread {
-	private Thread t;
+	private Boolean isTerminated = false;
 	
-	public AThread(String name,Thread t) {
-		super(name);
-		this.t = t;
+	public Boolean getIsTerminated() {
+		return isTerminated;
 	}
 
+	public void setIsTerminated(Boolean isTerminated) {
+		this.isTerminated = isTerminated;
+	}
+
+	public AThread(String name){
+		super(name);
+	}
+	
+	public AThread(String name,Boolean isTerminated){
+		super(name);
+		this.isTerminated = isTerminated;
+	}
+	
 	@Override
 	public void run() {
-		synchronized(this){
-			if(t != null){
-				try {
-					t.join();
+		try {
+			while(true){
+				Thread.sleep(1);
+				while(!getIsTerminated()){
 					System.out.println(Thread.currentThread().getName());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					
+					Thread.sleep(100);
 				}
 			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }

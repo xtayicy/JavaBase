@@ -14,17 +14,13 @@ public class TestThread {
 	 */
 	@Test
 	public void testJoin() throws InterruptedException{
-		AThread aThread = new AThread("A",null);
-		BThread bThread = new BThread("B",aThread);
-		CThread cThread = new CThread("C",bThread);
+		AThread aThread = new AThread("A");
+		BThread bThread = new BThread("B");
+		CThread cThread = new CThread("C");
 		aThread.start();
-		bThread.start();
-		cThread.start();
 		aThread.join();
-		System.out.println("1");
+		bThread.start();
 		bThread.join();
-		System.out.println("2");
-		cThread.join();
-		System.out.println("3");
+		cThread.start();
 	}
 }
